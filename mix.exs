@@ -28,7 +28,10 @@ defmodule Duct.MixProject do
   defp package do
     [
       maintainers: ["namngh"],
-      licenses: ["MIT"]
+      licenses: ["MIT"],
+      links: %{
+        "GitHub" => "https://github.com/namngh/duct"
+      }
     ]
   end
 end

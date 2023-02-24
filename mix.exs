@@ -4,12 +4,13 @@ defmodule Duct.MixProject do
   def project do
     [
       app: :duct,
-      version: "1.0.0",
+      version: "1.0.1",
       description: "A clean pipeline pattern",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      package: package()
+      package: package(),
+      docs: docs()
     ]
   end
 
@@ -32,6 +33,13 @@ defmodule Duct.MixProject do
       links: %{
         "GitHub" => "https://github.com/namngh/duct"
       }
+    ]
+  end
+
+  defp docs do
+    [
+      main: "Duct",
+      extras: ["README.md"]
     ]
   end
 end

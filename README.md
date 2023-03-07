@@ -1,6 +1,6 @@
 # Duct
 
-![hex](https://img.shields.io/hexpm/v/duct)
+[![hex](https://img.shields.io/hexpm/v/duct)](https://hex.pm/packages/duct/1.0.3)
 
 A clean pipeline pattern for new Elixir project. Base on excellent `Ecto.Multi` data structure.
 

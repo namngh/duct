@@ -81,6 +81,7 @@ defmodule Duct.Parallel do
   defguardp is_timeout(timeout)
             when timeout == :infinity or (is_integer(timeout) and timeout >= 0)
 
+  @doc false
   @spec yield_many([t], number | :infinity) :: [{t, {:ok, term} | {:exit, term} | nil}]
   def yield_many(tasks, timeout \\ 5000) when is_timeout(timeout) do
     timeout_ref = make_ref()

@@ -6,7 +6,7 @@ defmodule Duct.Multi do
   defstruct operations: [], names: MapSet.new()
 
   @type changes :: map
-  @type run :: (changes -> {:ok | :error, any} | any)
+  @type run :: (changes -> {:ok | :error, any} | any) | any
   @typep operation :: {:run, run} | {:inspect, Keyword.t()}
   @typep operations :: [{name, operation}]
   @typep names :: MapSet.t()
@@ -44,6 +44,22 @@ defmodule Duct.Multi do
 
       _ ->
         %{multi | operations: [{name, {:run, run}} | operations], names: MapSet.put(names, name)}
+    end
+  end
+
+  def run(%{operations: operations, names: names} = multi, name, run) do
+    names
+    |> MapSet.member?(name)
+    |> case do
+      true ->
+        raise "#{Kernel.inspect(name)} is already a member of the Duct.Multi: \n#{Kernel.inspect(multi)}"
+
+      _ ->
+        %{
+          multi
+          | operations: [{name, {:run, fn _ -> run end}} | operations],
+            names: MapSet.put(names, name)
+        }
     end
   end
 

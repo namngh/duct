@@ -6,7 +6,7 @@ defmodule DuctTest do
     assert {:ok, %{"salad" => 10, "tomato" => 5, "total" => 15, "tax" => 1.5}} =
              Duct.Multi.new()
              |> Duct.Multi.run("salad", fn _ -> {:ok, 10} end)
-             |> Duct.Multi.run("tomato", fn _ -> 5 end)
+             |> Duct.Multi.run("tomato", 5)
              |> Duct.Multi.run("total", fn %{"salad" => salad, "tomato" => tomato} ->
                salad + tomato
              end)

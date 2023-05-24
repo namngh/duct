@@ -12,6 +12,7 @@ A clean pipeline pattern for new Elixir project. Base on excellent `Ecto.Multi` 
 Duct.Multi.new()
 |> Duct.Multi.run("salad", fn _ -> {:ok, 10} end) # Return {:ok, value} or {:error, error}
 |> Duct.Multi.run("tomato", fn _ -> 5 end) # Default is {:ok, value}
+|> Duct.Multi.run("lime", 8) # Convert to fn _ -> 8 end
 |> Duct.Multi.run("total", fn %{"salad" => salad, "tomato" => tomato} ->
   salad + tomato
 end)

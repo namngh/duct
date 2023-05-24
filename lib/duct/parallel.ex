@@ -1,7 +1,7 @@
 defmodule Duct.Parallel do
   defstruct operations: [], names: MapSet.new()
 
-  @type run :: (() -> {:ok | :error, any} | any)
+  @type run :: (() -> {:ok | :error, any} | any) | any
   @typep operation :: {:run, run} | {:inspect, Keyword.t()}
   @typep operations :: [{name, operation}]
   @typep names :: MapSet.t()
@@ -41,6 +41,22 @@ defmodule Duct.Parallel do
 
       _ ->
         %{multi | operations: [{name, {:run, run}} | operations], names: MapSet.put(names, name)}
+    end
+  end
+
+  def run(%{operations: operations, names: names} = multi, name, run) do
+    names
+    |> MapSet.member?(name)
+    |> case do
+      true ->
+        raise "#{Kernel.inspect(name)} is already a member of the Duct.Parallel: \n#{Kernel.inspect(multi)}"
+
+      _ ->
+        %{
+          multi
+          | operations: [{name, {:run, fn -> run end}} | operations],
+            names: MapSet.put(names, name)
+        }
     end
   end
 

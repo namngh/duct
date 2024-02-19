@@ -85,7 +85,7 @@ defmodule Duct.Multi do
   @doc false
   def __apply__(%__MODULE__{operations: operations}) do
     operations
-    |> Enum.reverse(operations)
+    |> Enum.reverse()
     |> Enum.reduce(%{}, &apply_operation/2)
     |> case do
       {name, value, acc} -> {:error, name, value, acc}
